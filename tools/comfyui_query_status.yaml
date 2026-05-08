@@ -1,0 +1,64 @@
+identity:
+  name: comfyui_query_status
+  author: custom
+  label:
+    en_US: ComfyUI Query Status
+    zh_Hans: ComfyUI 查询任务状态
+description:
+  human:
+    en_US: Query the generation status and result by prompt_id from ComfyUI
+    zh_Hans: 根据prompt_id查询ComfyUI的生成进度和结果
+  llm: A tool for querying the generation status and result by prompt_id from ComfyUI
+
+parameters:
+  - name: api_url
+    type: string
+    required: true
+    form: form
+    label:
+      en_US: ComfyUI API URL
+      zh_Hans: ComfyUI 接口地址
+    human_description:
+      en_US: ComfyUI server API URL
+      zh_Hans: ComfyUI 服务器接口地址
+    llm_description: ComfyUI server API URL, e.g., http://127.0.0.1:8188
+
+  - name: prompt_id
+    type: string
+    required: true
+    form: form
+    label:
+      en_US: Prompt ID
+      zh_Hans: 任务ID
+    human_description:
+      en_US: The prompt ID returned from the generation task
+      zh_Hans: 生成任务返回的 prompt ID
+    llm_description: The prompt ID returned from the generation task
+
+  - name: nodeID
+    type: string
+    required: true
+    form: form
+    label:
+      en_US: Output Node ID
+      zh_Hans: 输出节点ID
+    human_description:
+      en_US: The node ID that outputs the generated image
+      zh_Hans: 输出生成图片的节点ID
+    llm_description: The node ID that outputs the generated image
+
+  - name: resourceType
+    type: string
+    required: true
+    form: form
+    label:
+      en_US: Resource Type
+      zh_Hans: 资源类型
+    human_description:
+      en_US: Type of resource to retrieve (image, video, etc.)
+      zh_Hans: 要检索的资源类型（image, video等）
+    llm_description: Type of resource to retrieve (image, video, etc.)
+
+extra:
+  python:
+    source: tools/comfyui_query_status.py

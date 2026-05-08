@@ -1,0 +1,23 @@
+identity:
+  author: mypluginuser
+  name: comfyui-generate
+  label:
+    en_US: ComfyUI Generate
+    zh_Hans: ComfyUI 生成
+  description:
+    en_US: A ComfyUI plugin for text-to-image generation and task status query
+    zh_Hans: ComfyUI 文生图生成和任务状态查询插件
+  icon: icon.svg
+  tags:
+    - image
+    - productivity
+
+credentials_for_provider: {}
+
+tools:
+  - tools/comfyui_txt2img.yaml
+  - tools/comfyui_query_status.yaml
+
+extra:
+  python:
+    source: provider/provider.py

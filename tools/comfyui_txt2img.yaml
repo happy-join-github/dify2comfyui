@@ -1,0 +1,102 @@
+identity:
+  name: comfyui_txt2img
+  author: custom
+  label:
+    en_US: ComfyUI Txt2Img
+    zh_Hans: ComfyUI 文生图
+description:
+  human:
+    en_US: Generate images from text prompts using ComfyUI. Provide positive and negative prompts along with a workflow JSON.
+    zh_Hans: 使用 ComfyUI 从文字提示词生成图片。需要提供正向提示词、负向提示词和工作流JSON。
+  llm: A tool for generating images from text prompts using ComfyUI workflow. Returns the generated image URL.
+
+parameters:
+  - name: api_url
+    type: string
+    required: true
+    form: form
+    label:
+      en_US: ComfyUI API URL
+      zh_Hans: ComfyUI 接口地址
+    human_description:
+      en_US: ComfyUI server API URL
+      zh_Hans: ComfyUI 服务器接口地址
+    llm_description: ComfyUI server API URL, e.g., http://127.0.0.1:8188
+  - name: positive_prompt
+    type: string
+    required: true
+    form: form
+    label:
+      en_US: Positive Prompt
+      zh_Hans: 正向提示词
+    human_description:
+      en_US: Positive prompt describing what you want in the image
+      zh_Hans: 描述你希望在图片中看到的内容
+    llm_description: Positive prompt describing what you want in the image
+
+  - name: negative_prompt
+    type: string
+    required: true
+    form: form
+    label:
+      en_US: Negative Prompt
+      zh_Hans: 负向提示词
+    human_description:
+      en_US: Negative prompt describing what you want to avoid in the image
+      zh_Hans: 描述你不希望在图片中看到的内容
+    llm_description: Negative prompt describing what you want to avoid in the image
+
+  - name: workflow
+    type: string
+    required: true
+    form: form
+    label:
+      en_US: Workflow JSON
+      zh_Hans: 工作流JSON
+    human_description:
+      en_US: ComfyUI workflow JSON configuration
+      zh_Hans: ComfyUI 工作流 JSON 配置
+    llm_description: ComfyUI workflow JSON configuration string
+
+  - name: timeout
+    type: number
+    required: false
+    default: 600
+    form: form
+    label:
+      en_US: Timeout (seconds)
+      zh_Hans: 超时时间(秒)
+    human_description:
+      en_US: Maximum wait time for image generation
+      zh_Hans: 图片生成最大等待时间
+    llm_description: Maximum wait time for image generation in seconds
+
+  - name: nodeID
+    type: string
+    required: false
+    default: "9"
+    form: form
+    label:
+      en_US: Output Node ID
+      zh_Hans: 输出节点ID
+    human_description:
+      en_US: The node ID that outputs the generated image
+      zh_Hans: 输出生成图片的节点ID
+    llm_description: The node ID that outputs the generated image
+
+  - name: resourceType
+    type: string
+    required: false
+    default: "image"
+    form: form
+    label:
+      en_US: Resource Type
+      zh_Hans: 资源类型
+    human_description:
+      en_US: Type of resource to retrieve (image, video, etc.)
+      zh_Hans: 要检索的资源类型（image, video等）
+    llm_description: Type of resource to retrieve (image, video, etc.)
+
+extra:
+  python:
+    source: tools/comfyui_txt2img.py
