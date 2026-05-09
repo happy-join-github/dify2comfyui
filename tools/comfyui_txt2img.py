@@ -31,16 +31,20 @@ class ComfyuiTxt2ImgTool(Tool):
         resource_type = tool_parameters.get("resourceType", "image")
 
         if not api_url:
-            return self.create_json_message({"status": "error","message": "缺少 ComfyUI api_url","url": ""})
+            yield self.create_json_message({"status": "error","message": "缺少 ComfyUI api_url","url": ""})
+            return
             
         if not positive_prompt:
-            return self.create_json_message({"status": "error","message": "缺少正向提示词","url": ""})
+            yield self.create_json_message({"status": "error","message": "缺少正向提示词","url": ""})
+            return
         
         if not negative_prompt:
-            return self.create_json_message({"status": "error","message": "缺少负向提示词","url": ""})
+            yield self.create_json_message({"status": "error","message": "缺少负向提示词","url": ""})
+            return
         
         if not workflow:
-            return self.create_json_message({"status": "error","message": "缺少工作流模板","url": ""})
+            yield self.create_json_message({"status": "error","message": "缺少工作流模板","url": ""})
+            return
             
         try:
             client = ComfyUIClient(api_url)
@@ -49,7 +53,8 @@ class ComfyuiTxt2ImgTool(Tool):
             result = client.wait_for_result(prompt_id, node_id, resource_type, timeout)
 
             if result["status"] == "error":
-                return self.create_json_message(result)
+                yield self.create_json_message(result)
+                return
                 
 
             info = result["url"]
@@ -58,21 +63,25 @@ class ComfyuiTxt2ImgTool(Tool):
                 
                 img_url = f"{api_url}/view?{urllib.parse.urlencode({'filename': filename, 'type': info.get('type', 'output')})}"
                 result["url"] = img_url
-                
-                return self.create_json_message(result)
+
+                yield self.create_json_message(result)
+                return
             else:
-                return self.create_json_message(result)
+                yield self.create_json_message(result)
+                return
 
         except TimeoutError as e:
-            return self.create_json_message({
+            yield self.create_json_message({
                 "status": "error",
                 "message": f"生成超时：{str(e)}",
                 "url": ""
             })
+            return
         except Exception as e:
             err_msg = str(e)[:120]
-            return self.create_json_message({
+            yield self.create_json_message({
                 "status": "error",
                 "message": f"生成失败：{err_msg}",
                 "url": ""
             })
+            return
