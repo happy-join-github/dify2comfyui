@@ -36,7 +36,8 @@ parameters:
 
   - name: negative_prompt
     type: string
-    required: true
+    required: false
+    default: text,watemark
     form: form
     label:
       en_US: Negative Prompt
