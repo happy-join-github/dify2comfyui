@@ -13,7 +13,8 @@ description:
 parameters:
   - name: api_url
     type: string
-    required: true
+    required: false
+    default: "http://172.19.0.1:8188"
     form: form
     label:
       en_US: ComfyUI API URL
@@ -88,7 +89,7 @@ parameters:
   - name: resourceType
     type: string
     required: false
-    default: "image"
+    default: "images"
     form: form
     label:
       en_US: Resource Type
